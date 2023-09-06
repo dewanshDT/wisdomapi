@@ -3,7 +3,7 @@ import { sendMail, ApiError, asyncHandler, ApiResponse } from '../../utils'
 import bcrypt from 'bcrypt'
 import crypto from 'crypto'
 import jwt from 'jsonwebtoken'
-import { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } from '../../config'
+import { ACCESS_TOKEN_SECRET, HOST, REFRESH_TOKEN_SECRET } from '../../config'
 
 const registerUser = asyncHandler(async (req, res) => {
   const { firstName, lastName, email, mobileNumber, password } = req.body
@@ -22,13 +22,10 @@ const registerUser = asyncHandler(async (req, res) => {
   //create a token with crypto.js
 
   if (user) {
-    let setToken = await Token.create({
-      userId: user.id,
-      token: crypto.randomBytes(16).toString('hex'),
-    })
+    const emailVerificationToken = user.getEmailVerificationToken()
 
     //if token is created, send the user a mail
-    if (setToken) {
+    if (emailVerificationToken) {
       //send email to the user
       //with the function coming from the mailing.js file
       //message containing the user id and the token to help verify their email
@@ -36,7 +33,7 @@ const registerUser = asyncHandler(async (req, res) => {
         from: 'no-reply@example.com',
         to: `${email}`,
         subject: 'Account Verification Link',
-        text: `Hello ${firstName},\n\nPlease verify your email by clicking the link below:\nhttp://${req.hostname}/api/users/verify-email/${user.id}/${setToken.token}\n\nThank You!`,
+        text: `Hello ${firstName},\n\nPlease verify your email by clicking the link below:\n${HOST}/api/users/verify-email/${user.id}/${emailVerificationToken}\n\nThank You!`,
       })
 
       //if token is not created, send a status of 400
