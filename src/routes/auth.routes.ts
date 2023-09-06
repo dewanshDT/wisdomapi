@@ -15,7 +15,7 @@ const router = Router()
 router.route('/register').post(registerUser)
 
 // Verify email
-router.route('/verify-email/:userId/:verificationToken').post(verifyEmail)
+router.route('/verify-email/:id/:token').get(verifyEmail)
 
 // Resend verification email
 router.route('/resend-email-verification').post(auth, resendEmailVerification)

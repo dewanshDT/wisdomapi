@@ -2,7 +2,8 @@ import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
 import { Token, User } from '../../models'
 import { ApiError, ApiResponse, asyncHandler } from '../../utils'
-import { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } from '../../config'
+import { REFRESH_TOKEN_SECRET } from '../../config'
+import generateAccessToken from '../../utils/generateAccessToken'
 
 const loginWithPassword = asyncHandler(async (req, res) => {
   const { email, password } = req.body
@@ -18,10 +19,8 @@ const loginWithPassword = asyncHandler(async (req, res) => {
   }
 
   // generate accessToken and refreshToken when user is found
-  const accessToken = jwt.sign({ user }, ACCESS_TOKEN_SECRET, {
-    expiresIn: '15s',
-  })
-  const refreshToken = jwt.sign({ user }, REFRESH_TOKEN_SECRET)
+  const accessToken = generateAccessToken(user.id)
+  const refreshToken = jwt.sign({ userId: user.id }, REFRESH_TOKEN_SECRET)
   Token.create({
     userId: user.id,
     token: refreshToken,

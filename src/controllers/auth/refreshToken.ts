@@ -1,5 +1,10 @@
 import jwt from 'jsonwebtoken'
-import { ApiError, ApiResponse, asyncHandler } from '../../utils'
+import {
+  ApiError,
+  ApiResponse,
+  asyncHandler,
+  generateAccessToken,
+} from '../../utils'
 import { REFRESH_TOKEN_SECRET } from '../../config'
 
 const refreshToken = asyncHandler(async (req, res) => {
@@ -8,11 +13,9 @@ const refreshToken = asyncHandler(async (req, res) => {
   if (!refreshToken) throw new ApiError(400, "'refreshToken' is required", [])
 
   jwt.verify(refreshToken, REFRESH_TOKEN_SECRET, (error: any, payload: any) => {
-    if (error) throw new ApiError(403, "Invalid 'refreshToken'", [])
+    if (error) throw new ApiError(403, "Invalid 'refreshToken'")
 
-    const accessToken = jwt.sign(payload, REFRESH_TOKEN_SECRET, {
-      expiresIn: '15s',
-    })
+    const accessToken = generateAccessToken(payload.userId)
 
     return res
       .status(200)

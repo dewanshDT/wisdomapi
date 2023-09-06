@@ -22,3 +22,20 @@ Content-Type: application/json
     "email": "dewansh.dt@gmail.com",
     "password": "dewansh"
 }
+
+###
+
+POST http://localhost:8000/api/auth/token/refresh
+Content-Type: application/json
+
+{
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ZDc2N2ZjMy05NDI3LTRhMzEtYmYzYi1kZmNmYmExMTU4MWIiLCJpYXQiOjE2OTQwMzk3MzJ9.-wEfaf7as40yJ3kCM1f40t3QvZQhg-9x1nr9aZm5T9M"
+}
+
+###
+
+POST http://localhost:8000/api/auth/resend-email-verification
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ZDc2N2ZjMy05NDI3LTRhMzEtYmYzYi1kZmNmYmExMTU4MWIiLCJpYXQiOjE2OTQwMzk3MzIsImV4cCI6MTY5NDA0NTczMn0.cSDzUrFPNn6-qDmtmpvSRyJyFBOogAw3X0gD77V4otI
+
+###

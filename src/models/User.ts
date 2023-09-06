@@ -14,12 +14,14 @@ class User extends Model {
 
   getEmailVerificationToken() {
     const unHashedToken = crypto.randomBytes(16).toString('hex')
+    console.log('*****************', unHashedToken)
     const hashedToken = crypto
       .createHash('sha256')
       .update(unHashedToken)
       .digest('hex')
 
     this.emailVerificationToken = hashedToken
+    this.save()
     return unHashedToken
   }
 
@@ -28,6 +30,7 @@ class User extends Model {
 
     if (this.emailVerificationToken === hashedToken) {
       this.isEmailVerified = true
+      this.save()
       return true
     } else return false
   }

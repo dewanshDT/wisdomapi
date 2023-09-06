@@ -3,7 +3,7 @@ import { User } from '../../models'
 import { ApiError, ApiResponse, asyncHandler, sendMail } from '../../utils'
 
 const resendEmailVerification = asyncHandler(async (req, res) => {
-  const user = await User.findByPk(res.locals.user.id)
+  const user = await User.findByPk(res.locals.userId)
 
   const token = user?.getEmailVerificationToken()
 

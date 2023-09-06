@@ -1,9 +1,20 @@
 import { Token, User } from '../../models'
-import { sendMail, ApiError, asyncHandler, ApiResponse } from '../../utils'
+import {
+  sendMail,
+  ApiError,
+  asyncHandler,
+  ApiResponse,
+  generateAccessToken,
+} from '../../utils'
 import bcrypt from 'bcrypt'
 import crypto from 'crypto'
 import jwt from 'jsonwebtoken'
-import { ACCESS_TOKEN_SECRET, HOST, REFRESH_TOKEN_SECRET } from '../../config'
+import {
+  ACCESS_TOKEN_EXPIRY,
+  ACCESS_TOKEN_SECRET,
+  HOST,
+  REFRESH_TOKEN_SECRET,
+} from '../../config'
 
 const registerUser = asyncHandler(async (req, res) => {
   const { firstName, lastName, email, mobileNumber, password } = req.body
@@ -41,12 +52,8 @@ const registerUser = asyncHandler(async (req, res) => {
       throw new ApiError(400, 'token not created', [])
     }
 
-    console.log('user', JSON.stringify(user, null, 2))
-
-    const accessToken = jwt.sign({ user }, ACCESS_TOKEN_SECRET, {
-      expiresIn: '15s',
-    })
-    const refreshToken = jwt.sign({ user }, REFRESH_TOKEN_SECRET)
+    const accessToken = generateAccessToken(user.id)
+    const refreshToken = jwt.sign({ userId: user.id }, REFRESH_TOKEN_SECRET)
     Token.create({
       userId: user.id,
       token: refreshToken,

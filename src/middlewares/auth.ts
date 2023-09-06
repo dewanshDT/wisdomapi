@@ -3,8 +3,7 @@ import jwt from 'jsonwebtoken'
 import { ACCESS_TOKEN_SECRET } from '../config'
 
 function auth(req: Request, res: Response, next: NextFunction) {
-  const authHeader = req.headers['authorization']
-  const token = authHeader && authHeader.split(' ')[1]
+  const token = req.header('Authorization')?.replace('Bearer ', '')
 
   if (!token) {
     return res.status(401).json({ error: 'Authentication failed' })
@@ -14,7 +13,7 @@ function auth(req: Request, res: Response, next: NextFunction) {
     if (err) {
       return res.status(403).json({ error: 'Forbidden' })
     }
-    res.locals.user = user
+    res.locals.userId = user.userId
     next()
   })
 }
