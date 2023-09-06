@@ -27,6 +27,6 @@ router.route('/login').post(loginWithPassword)
 router.route('/logout').post(logout)
 
 // refreshing access token
-router.route('/refresh-token').post(refreshToken)
+router.route('/token/refresh').post(refreshToken)
 
 export default router
