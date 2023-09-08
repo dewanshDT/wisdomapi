@@ -1,15 +1,15 @@
 import express from 'express'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
-import { PORT, sequelize } from './src/config'
-import { authRouter } from './src/routes'
+import { CORS_ORIGIN, PORT } from './src/config'
+import { authRouter, userRouter } from './src/routes'
 import { errorHandler } from './src/middlewares'
 
 const app = express()
 
 app.use(
   cors({
-    origin: process.env.CORS_ORIGIN,
+    origin: CORS_ORIGIN,
     credentials: true,
   }),
 )
@@ -24,6 +24,7 @@ app.get('/', (req, res) =>
 )
 
 // Routes
+app.use('/api/user', userRouter)
 app.use('/api/auth', authRouter)
 
 app.use(errorHandler)

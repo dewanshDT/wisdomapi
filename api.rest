@@ -29,13 +29,25 @@ POST http://localhost:8000/api/auth/token/refresh
 Content-Type: application/json
 
 {
-    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ZDc2N2ZjMy05NDI3LTRhMzEtYmYzYi1kZmNmYmExMTU4MWIiLCJpYXQiOjE2OTQwMzk3MzJ9.-wEfaf7as40yJ3kCM1f40t3QvZQhg-9x1nr9aZm5T9M"
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ZDc2N2ZjMy05NDI3LTRhMzEtYmYzYi1kZmNmYmExMTU4MWIiLCJpYXQiOjE2OTQxNzAwNTF9.i2LE_TJiQtEinZ2Bzbg61J1fHDpWlvR9Kh3qOVOixXQ"
 }
 
 ###
 
 POST http://localhost:8000/api/auth/resend-email-verification
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ZDc2N2ZjMy05NDI3LTRhMzEtYmYzYi1kZmNmYmExMTU4MWIiLCJpYXQiOjE2OTQwMzk3MzIsImV4cCI6MTY5NDA0NTczMn0.cSDzUrFPNn6-qDmtmpvSRyJyFBOogAw3X0gD77V4otI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ZDc2N2ZjMy05NDI3LTRhMzEtYmYzYi1kZmNmYmExMTU4MWIiLCJpYXQiOjE2OTQwODkzNzMsImV4cCI6MTY5NDA5NTM3M30.D5Mdm1Jhj_wApO9a_DyRZXz3vTBaXdny8hiyDu8PvrY
 
 ###
+
+POST http://localhost:8000/api/auth/logout
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ZDc2N2ZjMy05NDI3LTRhMzEtYmYzYi1kZmNmYmExMTU4MWIiLCJpYXQiOjE2OTQwODkzNzMsImV4cCI6MTY5NDA5NTM3M30.D5Mdm1Jhj_wApO9a_DyRZXz3vTBaXdny8hiyDu8PvrY
+
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ZDc2N2ZjMy05NDI3LTRhMzEtYmYzYi1kZmNmYmExMTU4MWIiLCJpYXQiOjE2OTQwMzk3MzJ9.-wEfaf7as40yJ3kCM1f40t3QvZQhg-9x1nr9aZm5T9M"
+}
+
+###
+GET http://localhost:8000/api/user/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzNWNmNGFmZi0wOGI1LTRlOWEtYWI3MC01OThkMzNmNmNjMDEiLCJpYXQiOjE2OTQxNjYxNDYsImV4cCI6MTY5NDE3MjE0Nn0.b3ncP11ziIPQuYJAkY71HRWaNRXYDBNHDmb3dUOAGxU

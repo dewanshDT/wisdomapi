@@ -12,6 +12,17 @@ class User extends Model {
   public isEmailVerified!: boolean
   public emailVerificationToken!: string
 
+  getUser() {
+    return {
+      id: this.id,
+      firstName: this.firstName,
+      lastName: this.lastName,
+      email: this.email,
+      mobileNumber: this.mobileNumber,
+      isEmailVerified: this.isEmailVerified,
+    }
+  }
+
   getEmailVerificationToken() {
     const unHashedToken = crypto.randomBytes(16).toString('hex')
     console.log('*****************', unHashedToken)
@@ -59,6 +70,7 @@ User.init(
     mobileNumber: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
     },
     password: {
       type: DataTypes.STRING,

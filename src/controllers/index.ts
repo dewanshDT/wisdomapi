@@ -1,3 +1,7 @@
+// user routes
+export { default as userById } from './user/userById'
+
+// auth routes
 export { default as registerUser } from './auth/registerUser'
 export { default as loginWithPassword } from './auth/loginWithPassword'
 export { default as logout } from './auth/logout'
